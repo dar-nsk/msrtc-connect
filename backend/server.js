@@ -11,18 +11,23 @@ const allowedOrigins = [
   "https://msrtc-connect.vercel.app"
 ];
 
-// ✅ Better CORS handling (important)
 app.use(cors({
   origin: (origin, callback) => {
-    console.log("Origin:", origin); // 🔍 DEBUG
+    console.log("Origin:", origin);
 
     if (!origin) return callback(null, true);
 
+    // ✅ Allow main domain
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
-    } else {
-      return callback(new Error("Not allowed by CORS"));
     }
+
+    // ✅ Allow ALL vercel preview URLs
+    if (origin.includes(".vercel.app")) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
   },
   credentials: true
 }));
