@@ -5,30 +5,40 @@ const cors = require("cors");
 
 const app = express();
 
+// ✅ FIXED origins (NO trailing slash)
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://msrtc-connect.vercel.app/"
+  "https://msrtc-connect.vercel.app"
 ];
 
+// ✅ Better CORS handling (important)
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+  },
   credentials: true
 }));
+
+// ✅ VERY IMPORTANT (missing in your code)
+app.use(express.json());
 
 // 🔗 MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Atlas Connected"))
   .catch(err => console.log(err));
 
-// Routes (we'll add later)
+// Routes
 app.use("/api/bus", require("./routes/busRoutes"));
-
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/bookings", require("./routes/bookingRoutes"));
 app.use("/api/timetables", require("./routes/timetableRoutes"));
 app.use("/api/pricing", require("./routes/pricingRoutes"));
 
+// ✅ Use dynamic port for Render
+const PORT = process.env.PORT || 5000;
 
-app.listen(5000, () => console.log("Server running on port 5000"));
-
-//npx nodemon server.js 
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
