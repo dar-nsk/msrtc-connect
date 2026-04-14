@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+const API = import.meta.env.VITE_API_URL;
 
 const TicketPricing = () => {
   const [form, setForm] = useState({
