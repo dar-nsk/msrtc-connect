@@ -6,11 +6,10 @@ const Timetable = () => {
   const [file, setFile] = useState(null);
   const [timetables, setTimetables] = useState([]);
 
-   fetch(`${API}/api/timetables`);
   // 🔹 Fetch all timetables
   const fetchTimetables = async () => {
     try {
-      const res = await fetch(API);
+      const res = await fetch(`${API}/api/timetables`);
       const data = await res.json();
       setTimetables(data);
     } catch (err) {

@@ -14,10 +14,10 @@ const ManageBuses = () => {
 
   const [buses, setBuses] = useState([]);
 
-  fetch(`${API}/api/bus`);
+  
 
   const fetchBuses = async () => {
-    const res = await fetch(API);
+    const res = await fetch(`${API}/api/bus`);
     const data = await res.json();
     setBuses(data);
   };

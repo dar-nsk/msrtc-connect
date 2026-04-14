@@ -11,10 +11,10 @@ const TicketPricing = () => {
 
   const [pricing, setPricing] = useState([]);
 
-  fetch(`${API}/api/pricing`);
+  
 
   const fetchPricing = async () => {
-    const res = await fetch(API);
+    const res = await fetch(`${API}/api/pricing`);
     const data = await res.json();
     setPricing(data);
   };
