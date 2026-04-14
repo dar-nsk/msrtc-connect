@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.input {
+  @apply w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-400;
+}
+
+@keyframes moveBusRightToLeft {
+  0% {
+    transform: translateX(100vw); /* start from right outside screen */
+  }
+  100% {
+    transform: translateX(-100%); /* move to left outside */
+  }
+}
+
+.animate-bus {
+  position: absolute;
+  bottom: 0;
+  animation: moveBusRightToLeft 12s linear infinite;
+}
