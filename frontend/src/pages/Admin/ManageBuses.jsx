@@ -31,7 +31,7 @@ const ManageBuses = () => {
   };
 
   const handleAdd = async () => {
-    await fetch(`${API}/add`, {
+    await fetch(`${API}/api/bus/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -50,7 +50,7 @@ const ManageBuses = () => {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`${API}/${id}`, { method: "DELETE" });
+    await fetch(`${API}/api/bus/${id}`, { method: "DELETE" });
     fetchBuses();
   };
 

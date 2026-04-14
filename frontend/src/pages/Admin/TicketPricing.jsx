@@ -28,7 +28,7 @@ const TicketPricing = () => {
   };
 
   const handleAdd = async () => {
-    await fetch(`${API}/add`, {
+    await fetch(`${API}/api/pricing/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const TicketPricing = () => {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`${API}/${id}`, { method: "DELETE" });
+    await fetch(`${API}/api/pricing/${id}`, { method: "DELETE" });
     fetchPricing();
   };
 

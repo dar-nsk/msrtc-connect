@@ -10,7 +10,7 @@ const Timetable = () => {
   // 🔹 Fetch all timetables
   const fetchTimetables = async () => {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(API);
       const data = await res.json();
       setTimetables(data);
     } catch (err) {
@@ -30,7 +30,7 @@ const Timetable = () => {
     }
 
     try {
-      await fetch(`${API_URL}/add`, {
+      await fetch(`${API}/api/timetables/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const Timetable = () => {
   // 🔹 Delete
   const handleDelete = async (cityName) => {
     try {
-      await fetch(`${API_URL}/${cityName}`, {
+      fetch(`${API}/api/timetables/${cityName}`,  {
         method: "DELETE",
       });
 
