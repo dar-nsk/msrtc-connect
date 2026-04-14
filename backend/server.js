@@ -5,10 +5,15 @@ const cors = require("cors");
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://your-frontend.vercel.app"
+];
+
 app.use(cors({
-  origin: "http://localhost:5173", // frontend URL
+  origin: allowedOrigins,
+  credentials: true
 }));
-app.use(express.json());
 
 // 🔗 MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
