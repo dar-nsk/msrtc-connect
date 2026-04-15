@@ -17,12 +17,13 @@ const ManageBuses = () => {
   const formatTime = (time) => {
   if (!time) return "";
 
-  const [hour, minute] = time.split(":");
-  let h = parseInt(hour);
-  const ampm = h >= 12 ? "PM" : "AM";
+  const parts = time.split(":");
+  let h = parseInt(parts[0]);
+  const minute = parts[1];
 
+  const ampm = h >= 12 ? "PM" : "AM";
   h = h % 12;
-  h = h ? h : 12; // 0 → 12
+  h = h ? h : 12;
 
   return `${h}:${minute} ${ampm}`;
 };
