@@ -14,6 +14,18 @@ const ManageBuses = () => {
 
   const [buses, setBuses] = useState([]);
 
+  const formatTime = (time) => {
+  if (!time) return "";
+
+  const [hour, minute] = time.split(":");
+  let h = parseInt(hour);
+  const ampm = h >= 12 ? "PM" : "AM";
+
+  h = h % 12;
+  h = h ? h : 12; // 0 → 12
+
+  return `${h}:${minute} ${ampm}`;
+};
   
 
   const fetchBuses = async () => {
@@ -186,8 +198,8 @@ const ManageBuses = () => {
         <td className="py-3 px-4">{bus.busName}</td>
         <td className="py-3 px-4">{bus.source}</td>
         <td className="py-3 px-4">{bus.destination}</td>
-        <td className="py-3 px-4">{bus.departureTime}</td>
-        <td className="py-3 px-4">{bus.arrivalTime}</td>
+        <td className="py-3 px-4">{formatTime(bus.departureTime)}</td>
+        <td className="py-3 px-4">{formatTime(bus.arrivalTime)}</td>
         <td className="py-3 px-4 text-center">{bus.availableSeats}</td>
         <td className="py-3 px-4">{bus.type}</td>
 
