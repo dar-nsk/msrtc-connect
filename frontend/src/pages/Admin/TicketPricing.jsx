@@ -77,36 +77,36 @@ const TicketPricing = () => {
       </button>
 
       {/* TABLE */}
-      <table className="w-full">
-        <thead>
-          <tr>
-            <th>Source</th>
-            <th>Destination</th>
-            <th>Type</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+      <table className="w-full border border-gray-300 border-collapse">
+  <thead className="bg-gray-100">
+    <tr>
+      <th className="border p-2 text-left">Source</th>
+      <th className="border p-2 text-left">Destination</th>
+      <th className="border p-2 text-left">Type</th>
+      <th className="border p-2 text-left">Price</th>
+      <th className="border p-2 text-left">Action</th>
+    </tr>
+  </thead>
 
-        <tbody>
-          {pricing.map((p) => (
-            <tr key={p._id}>
-              <td>{p.source}</td>
-              <td>{p.destination}</td>
-              <td>{p.type}</td>
-              <td>₹{p.price}</td>
-              <td>
-                <button
-                  onClick={() => handleDelete(p._id)}
-                  className="text-red-500"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  <tbody>
+    {pricing.map((p) => (
+      <tr key={p._id} className="hover:bg-gray-50">
+        <td className="border p-2">{p.source}</td>
+        <td className="border p-2">{p.destination}</td>
+        <td className="border p-2">{p.type}</td>
+        <td className="border p-2">₹{p.price}</td>
+        <td className="border p-2">
+          <button
+            onClick={() => handleDelete(p._id)}
+            className="text-red-500 hover:underline"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
     </div>
   );
 };
