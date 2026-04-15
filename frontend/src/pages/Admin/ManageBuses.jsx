@@ -31,23 +31,36 @@ const ManageBuses = () => {
   };
 
   const handleAdd = async () => {
-    await fetch(`${API}/api/bus/add`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(form)
-    });
+  if (
+    !form.busName ||
+    !form.source ||
+    !form.destination ||
+    !form.type
+  ) {
+    alert("Please fill all required fields");
+    return;
+  }
 
-    fetchBuses();
+  await fetch(`${API}/api/bus/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(form)
+  });
 
-    setForm({
-      source: "",
-      destination: "",
-      time: "",
-      type: ""
-    });
-  };
+  fetchBuses();
+
+  setForm({
+    busName: "",
+    source: "",
+    destination: "",
+    type: "",
+    departureTime: "",
+    arrivalTime: "",
+    availableSeats: ""
+  });
+};
 
   const handleDelete = async (id) => {
     await fetch(`${API}/api/bus/${id}`, { method: "DELETE" });
@@ -160,29 +173,35 @@ const ManageBuses = () => {
             </thead>
 
           <tbody>
-        {buses.map((bus) => (
-            <tr key={bus._id} className="border-b hover:bg-gray-50">
+  {buses
+    .filter(
+      (bus) =>
+        bus &&
+        bus.busName &&
+        bus.source &&
+        bus.destination
+    )
+    .map((bus) => (
+      <tr key={bus._id} className="border-b hover:bg-gray-50">
+        <td className="py-3 px-4">{bus.busName}</td>
+        <td className="py-3 px-4">{bus.source}</td>
+        <td className="py-3 px-4">{bus.destination}</td>
+        <td className="py-3 px-4">{bus.departureTime}</td>
+        <td className="py-3 px-4">{bus.arrivalTime}</td>
+        <td className="py-3 px-4 text-center">{bus.availableSeats}</td>
+        <td className="py-3 px-4">{bus.type}</td>
 
-            <td className="py-3 px-4">{bus.busName}</td>
-            <td className="py-3 px-4">{bus.source}</td>
-            <td className="py-3 px-4">{bus.destination}</td>
-            <td className="py-3 px-4">{bus.departureTime}</td>
-            <td className="py-3 px-4">{bus.arrivalTime}</td>
-            <td className="py-3 px-4 text-center">{bus.availableSeats}</td>
-            <td className="py-3 px-4">{bus.type}</td>
-
-            <td className="py-3 px-4">
-                <button
-                onClick={() => handleDelete(bus._id)}
-                className="text-red-500 hover:underline"
-                >
-                Delete
-                </button>
-            </td>
-
-            </tr>
-        ))}
-        </tbody>
+        <td className="py-3 px-4">
+          <button
+            onClick={() => handleDelete(bus._id)}
+            className="text-red-500 hover:underline"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    ))}
+</tbody>
 
         </table>
       </div>
